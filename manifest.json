@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["*://pikabu.ru/*"],
-      "js": ["DeletePikabuStoryFirefoxExtension.js"]
+      "js": ["ClosePikabuStoryFirefoxExtension.js"]
     }
   ],
 

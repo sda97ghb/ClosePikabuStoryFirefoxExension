@@ -3,10 +3,12 @@
   "name": "Закрыватель посов для Pikabu.ru",
   "version": "1.0",
 
+  "homepage_url": "https://github.com/sda97ghb/ClosePikabuStoryFirefoxExension",
+  
   "description": "Добавляет кнопки закрытия поста рядом с левыми и нижними кнопками плюсов/минусов.",
 
   "icons": {
-    "48": "icons/close.png"
+    "96": "icons/icon.png"
   },
 
   "content_scripts": [

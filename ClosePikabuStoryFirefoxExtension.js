@@ -19,9 +19,11 @@ function createCloseButton(storyId)
 	deletePostButton.classList.add("story__delete-post");
 	deletePostButton.title = "Закрыть пост";
 	
-	deletePostButton.onclick = (function () {
+	deletePostButton.onclick = (function () 
+	{
 		var id = storyId;
-		return function() {
+		return function() 
+		{
 			for (storyIter in stories)
 			{
 				var story = stories[storyIter];
@@ -54,6 +56,7 @@ function addLeftCloseButton(story)
 function addFooterCloseButton(story)
 {
 	var storyId = story.getAttribute("data-story-id");
+	
 	var deletePostButton = createCloseButton(storyId);
 	
 	var storyMain = story.getElementsByClassName("story__main")[0];
@@ -63,12 +66,51 @@ function addFooterCloseButton(story)
 	raitingBlock.appendChild(deletePostButton);
 }
 
-// For all stories on current page add close buttons 
-// on left and footer raiting blocks.
-for (storyIter in stories)
+/// @brief For all stories on current page add close buttons 
+/// on left and footer raiting blocks.
+function addCloseButtons()
 {
-	var story = stories[storyIter];
-
-	addLeftCloseButton(story)
-	addFooterCloseButton(story);
+	for (storyIter in stories)
+	{
+		var story = stories[storyIter];
+		try
+		{
+			addLeftCloseButton(story)
+			addFooterCloseButton(story);
+		}
+		catch (e)
+		{
+			continue;
+		}
+	}
 }
+
+addCloseButtons();
+
+/// Setup mutation listener that detect when new stories 
+/// was loaded and add close post buttons.
+(function(){
+	
+var MutationObserver = window.MutationObserver || window.WebKilMutationObserver || window.MozMutationObserver;
+
+var stories = document.getElementsByClassName("stories")[0];
+var observer = new MutationObserver(function(mutations) {
+	mutations.forEach(function(mutation) {
+		if (!(mutation.type === 'childList'))
+			return;
+		alert("mutation!");
+		var deleters = document.getElementsByClassName("story__delete-post");
+		while (deleters.length > 0)
+			deleters[0].remove();
+		alert("delete!");
+		addCloseButtons();
+	})
+});
+var observerAttributes = {
+	childList: true
+};
+observer.observe(stories, observerAttributes);
+
+})();
+
+alert("ClosePikabuStory extension was loaded!");

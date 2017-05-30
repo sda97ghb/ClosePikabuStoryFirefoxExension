@@ -98,11 +98,9 @@ var observer = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
 		if (!(mutation.type === 'childList'))
 			return;
-		alert("mutation!");
 		var deleters = document.getElementsByClassName("story__delete-post");
 		while (deleters.length > 0)
 			deleters[0].remove();
-		alert("delete!");
 		addCloseButtons();
 	})
 });
